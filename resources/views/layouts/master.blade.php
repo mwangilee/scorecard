@@ -189,7 +189,7 @@
                                                 <a role="button" tabindex="0"><i class="fa fa-pencil"></i> <span>Parameters</span></a>
                                                 <ul>
                                                     <li><a href="{{url('/categories')}}"><i class="fa fa-caret-right"></i> Scoring Categories</a></li>
-                                                    <li><a href="{{url('/parameters')}}"><i class="fa fa-caret-right"></i> Scorecard Parameters</a></li>
+                                                    <li><a href="{{url('/scorecardparams')}}"><i class="fa fa-caret-right"></i> Scorecard Parameters</a></li>
                                                     <li><a href="{{url('/weights')}}"><i class="fa fa-caret-right"></i> Scoring Weights</a></li>
                                                     <li><a href="{{url('/parameters')}}"><i class="fa fa-caret-right"></i> System Parameters</a></li>
 

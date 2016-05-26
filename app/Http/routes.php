@@ -28,9 +28,9 @@ Route::get('/weights', ['as' => 'weights','uses' => 'HomeController@weights']);
 Route::any('/editweights/{id?}/{action?}/', ['as' => 'editweights','uses' => 'HomeController@editweights']);
 Route::any('/addweights', ['as' => 'addweights','uses' => 'HomeController@addweights']);
 
-Route::get('/parameters', ['as' => 'parameters','uses' => 'HomeController@parameters']);
-Route::any('/editparameters/{id?}/{action?}/', ['as' => 'editparameters','uses' => 'HomeController@editparameters']);
-Route::any('/addparameters', ['as' => 'addparameters','uses' => 'HomeController@addparameters']);
+Route::get('/scorecardparams', ['as' => 'scorecardparams','uses' => 'HomeController@scorecardparams']);
+Route::any('/editscorecardparams/{id?}/{action?}/', ['as' => 'editscorecardparams','uses' => 'HomeController@editscorecardparams']);
+Route::any('/addscorecardparams', ['as' => 'addscorecardparams','uses' => 'HomeController@addscorecardparams']);
 
 
 
