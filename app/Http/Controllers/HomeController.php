@@ -17,7 +17,7 @@ use Request;
 
 class HomeController extends Controller {
 
-    public $message;
+//<editor-fold defaultstate="collapsed" desc="defaults">
 
     /**
      * Display a listing of the resource.
@@ -38,8 +38,7 @@ class HomeController extends Controller {
     public function dashboard() {
         return view('forms.dashboard');
     }
-
-  
+//</editor-fold> 
 //<editor-fold defaultstate="collapsed" desc="scorecards">
     public function scorecards() {
      /**
@@ -281,6 +280,91 @@ class HomeController extends Controller {
                  ->first();
 
                 return view('forms.editweights', ['weights' => $edit]);
+            }
+        }
+    }
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="scorecardparams">
+    public function scorecardparams() {
+     /**
+     * Display a list of the score cards params in a grid.
+     */
+        
+        $scorecardparams = DB::table('tbl_parameters') ->get();
+        return view('grids.scorecardparams', ['scorecardparams' => $scorecardparams]);
+    }
+    
+    public function addscorecardparams(Request $request) {
+        
+        if (Request::isMethod('post')) {
+ 
+           
+            if(DB::table('tbl_parameters')->insert([ 
+                'parametername' => Request::input('parametername'),
+                'paramtype_bool' => $bool = (Request::input('paramtype_bool') === 'True' ? '1' : '0'),
+                'status' => Request::input('status'),
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')])) {
+                
+                 $message = 'Recored inserted successfully';
+                 
+               return redirect()->route('scorecardparams')->with('message', $message);
+                
+                }else{
+                    
+                     $message = 'Recored failed to insert';
+            return redirect()->route('scorecardparams')->with('fail', $message);
+                    
+                };
+           
+            
+        }else {
+            $params = DB::table('tbl_parameters')
+                      ->get();
+            return view('forms.addscorecardparams', ['params' => $params]);
+        }
+        //
+    }
+
+    public function editscorecardparams($id = null, $action = null) {
+
+
+        if (Request::isMethod('post')) {
+            $id = Request::input('id');
+            $data = [
+                'parametername' => Request::input('parametername'),
+                'paramtype_bool' => $bool = (Request::input('paramtype_bool') === 'True' ? '1' : '0'),
+                'status' => Request::input('status'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')];
+
+            if (isset($id) && $id > 0) {
+
+                if (DB::table('tbl_parameters')->where('id', '=', $id)->update($data)) {
+                    $message = 'Record has been updated successfully';
+                    return redirect()->route('scorecardparams')->with('message', $message);
+                } else {
+                    $message = 'Recored failed to update';
+                    return redirect()->route('scorecardparams')->with('fail', $message);
+                };
+            } 
+        } else {
+
+            if (isset($id) && $id > 0 && $action == 2) {
+
+                if (DB::table('tbl_parameters')->where('id', $id)->delete()) {
+                    $message = 'Record has been deleted successfully';
+                    return redirect()->route('scorecardparams')->with('message', $message);
+                } else {
+                    $message = 'Failed to delete record from database';
+                    return redirect()->route('scorecardparams')->with('fail', $message);
+                };
+            } else {
+                
+                $edit = DB::table('tbl_parameters')
+                 ->where('id', $id)
+                 ->first();
+
+                return view('forms.editscorecardparams', ['scorecardparams' => $edit]);
             }
         }
     }
