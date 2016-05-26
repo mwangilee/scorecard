@@ -17,6 +17,7 @@ Route::any('/', ['as' => 'login','uses' => 'HomeController@index']);
 Route::any('/dashboard', ['as' => 'dashboard','uses' => 'HomeController@dashboard']);
 Route::get('/scorecards', ['as' => 'scorecards','uses' => 'HomeController@scorecards']);
 Route::any('/editscorecard/{id?}/{action?}/', ['as' => 'editscorecard','uses' => 'HomeController@editscorecard']);
+Route::any('/editcategories/{id?}/{action?}/', ['as' => 'editcategories','uses' => 'HomeController@editcategories']);
 Route::get('/categories', ['as' => 'categories','uses' => 'HomeController@categories']);
 
 

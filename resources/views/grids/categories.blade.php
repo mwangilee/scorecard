@@ -6,7 +6,7 @@
 
     <div class="pageheader">
 
-        <h2>Score Cards <span></span></h2>
+        <h2>Score Card Categories <span></span></h2>
 
         <div class="page-bar">
 
@@ -18,7 +18,7 @@
                     <a href="#">Tables</a>
                 </li>
                 <li>
-                    <a href="tables-datatables.html">Datatables</a>
+                    <a href="#">Datatables</a>
                 </li>
             </ul>
 
@@ -109,8 +109,8 @@
                                     <td>{{$index->created_at}}</td>
                                     <td>{{$index->updated_at}}</td>
                                     <td class="actions">
-                                        <a href="{{url("/editscorecard/$index->id")}}"class="text-primary text-uppercase text-strong text-sm mr-10">Edit</a>
-                                        <a href="{{url("/deletescorecard/$index->id")}}"class="text-danger text-uppercase text-strong text-sm mr-10">Delete</a>
+                                        <a href="{{url("/editcategories/$index->id/1")}}"class="text-primary text-uppercase text-strong text-sm mr-10">Edit</a>
+                                        <a href="{{url("/deletecategories/$index->id/2")}}"class="text-danger text-uppercase text-strong text-sm mr-10">Delete</a>
                                     </td>
 
                                 </tr>

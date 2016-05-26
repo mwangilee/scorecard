@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Categories;
 use App\Parameters;
 use App\ScoreCard;
@@ -12,6 +13,7 @@ use App\Utility;
 use DB;
 use Validator;
 use Request;
+
 
 class HomeController extends Controller {
 
@@ -43,7 +45,7 @@ class HomeController extends Controller {
     }
 
     public function dashboard() {
-        return view('forms.editscorecards');
+        return view('forms.dashboard');
     }
 
     /**
@@ -103,9 +105,10 @@ class HomeController extends Controller {
                 ->join('tbl_scorecard_categories', 'tbl_scorecard.category_id', '=', 'tbl_scorecard_categories.id')
                 ->select('tbl_scorecard.*', 'tbl_scorecard_categories.name as '
                         . 'category', 'tbl_scorecard.name as scorecardname ', 'tbl_scorecard.id as scoreid')
+                ->orderBy('tbl_scorecard.id', 'asc')
                 ->get();
 
-        return view('forms.scorecards', ['scorecards' => $scorecards]);
+        return view('grids.scorecards', ['scorecards' => $scorecards]);
     }
 
     public function editscorecard($id = null, $action = null) {
@@ -117,7 +120,8 @@ class HomeController extends Controller {
             $data = [
                 'name' => Request::input('name'),
                 'status' => Request::input('status'),
-                'description' => Request::input('description')];
+                'description' => Request::input('description'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')];
 
             if (isset($id) && $id > 0) {
 
@@ -154,18 +158,20 @@ class HomeController extends Controller {
     }
 
     public function categories() {
-        $categories = DB::table('tbl_scorecard_categories')->get();
-        return view('forms.categories', ['categories' => $categories]);
+        $categories = DB::table('tbl_scorecard_categories') ->orderBy('id', 'asc')->get();
+        return view('grids.categories', ['categories' => $categories]);
     }
 
-    public function editscategories($id = null) {
+    public function editcategories($id = null, $action = null) {
+
 
         if (Request::isMethod('post')) {
 
             $id = Request::input('id');
             $data = [
                 'name' => Request::input('name'),
-                'status' => Request::input('status')];
+                'status' => Request::input('status'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')];
 
             if (isset($id) && $id > 0) {
 
@@ -176,17 +182,27 @@ class HomeController extends Controller {
                     $message = 'Recored failed to update';
                     return redirect()->route('categories')->with('fail', $message);
                 };
-            }
+            } 
         } else {
 
-            $edit = DB::table('tbl_scorecard')
-                    ->join('tbl_scorecard_categories', 'tbl_scorecard.category_id', '=', 'tbl_scorecard_categories.id')
-                    ->select('tbl_scorecard.*', 'tbl_scorecard_categories.name as '
-                            . 'category', 'tbl_scorecard.name as scorecardname ', 'tbl_scorecard.id as scoreid')
-                    ->where('tbl_scorecard.id', $id)
-                    ->first();
+            if (isset($id) && $id > 0 && $action == 2) {
 
-            return view('forms.editscorecards', ['scorecards' => $edit]);
+                if (DB::table('tbl_scorecard_categories')->where('id', $id)->delete()) {
+                    $message = 'Record has been deleted successfully';
+                    return redirect()->route('categories')->with('message', $message);
+                } else {
+                    $message = 'Failed to delete record from database';
+                    return redirect()->route('categories')->with('message', $message);
+                };
+            } else {
+                
+                $edit = DB::table('tbl_scorecard_categories')
+                        ->where('id', $id)
+                        ->first();
+           
+
+                return view('forms.editcategories', ['categories' => $edit]);
+            }
         }
     }
 
