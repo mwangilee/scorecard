@@ -35,72 +35,16 @@ class HomeController extends Controller {
         return view('forms.scorecards', ['scorecards' => $scorecards]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
-
     public function dashboard() {
         return view('forms.dashboard');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        //
-    }
-
+  
+//<editor-fold defaultstate="collapsed" desc="scorecards">
     public function scorecards() {
-
+     /**
+     * Display a list of the score cards in a grid.
+     */
         $scorecards = DB::table('tbl_scorecard')
                 ->join('tbl_scorecard_categories', 'tbl_scorecard.category_id', '=', 'tbl_scorecard_categories.id')
                 ->select('tbl_scorecard.*', 'tbl_scorecard_categories.name as '
@@ -112,7 +56,9 @@ class HomeController extends Controller {
     }
 
     public function editscorecard($id = null, $action = null) {
-
+     /**
+     * Display forms that edit/delete scorecards.
+     */
 
         if (Request::isMethod('post')) {
 
@@ -156,11 +102,41 @@ class HomeController extends Controller {
             }
         }
     }
-
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="categories">
     public function categories() {
         $categories = DB::table('tbl_scorecard_categories') ->orderBy('id', 'asc')->get();
         return view('grids.categories', ['categories' => $categories]);
     }
+    public function addcategory(Request $request) {
+        
+        if (Request::isMethod('post')) {
+     
+            if(DB::table('tbl_scorecard_categories')->insert([ 
+                'name' => Request::input('name'),
+                'status' => Request::input('status'),
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')])) {
+                
+                 $message = 'Recored inserted successfully';
+                 
+               return redirect()->route('categories')->with('message', $message);
+                
+                }else{
+                    
+                     $message = 'Recored failed to insert';
+            return redirect()->route('categories')->with('fail', $message);
+                    
+                };
+           
+            
+        }else {
+            
+            return view('forms.addcategory');
+        }
+        //
+    }
+    
 
     public function editcategories($id = null, $action = null) {
 
@@ -205,7 +181,98 @@ class HomeController extends Controller {
             }
         }
     }
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="weights">
+    public function weights() {
+     /**
+     * Display a list of the score cards in a grid.
+     */
+        $scorecards = DB::table('tbl_scorecard')
+                ->join('tbl_scorecard_categories', 'tbl_scorecard.category_id', '=', 'tbl_scorecard_categories.id')
+                ->select('tbl_scorecard.*', 'tbl_scorecard_categories.name as '
+                        . 'category', 'tbl_scorecard.name as scorecardname ', 'tbl_scorecard.id as scoreid')
+                ->orderBy('tbl_scorecard.id', 'asc')
+                ->get();
 
+        return view('grids.scorecards', ['scorecards' => $scorecards]);
+    }
+    
+    public function addweights(Request $request) {
+        
+        if (Request::isMethod('post')) {
+     
+            if(DB::table('tbl_scorecard_categories')->insert([ 
+                'name' => Request::input('name'),
+                'status' => Request::input('status'),
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')])) {
+                
+                 $message = 'Recored inserted successfully';
+                 
+               return redirect()->route('categories')->with('message', $message);
+                
+                }else{
+                    
+                     $message = 'Recored failed to insert';
+            return redirect()->route('categories')->with('fail', $message);
+                    
+                };
+           
+            
+        }else {
+            
+            return view('forms.addcategory');
+        }
+        //
+    }
+
+    public function editweights($id = null, $action = null) {
+
+
+        if (Request::isMethod('post')) {
+
+            $id = Request::input('id');
+            $data = [
+                'name' => Request::input('name'),
+                'status' => Request::input('status'),
+                'description' => Request::input('description'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')];
+
+            if (isset($id) && $id > 0) {
+
+                if (DB::table('tbl_scorecard')->where('id', '=', $id)->update($data)) {
+                    $message = 'Record has been updated successfully';
+                    return redirect()->route('scorecards')->with('message', $message);
+                } else {
+                    $message = 'Recored failed to update';
+                    return redirect()->route('scorecards')->with('fail', $message);
+                };
+            } 
+        } else {
+
+            if (isset($id) && $id > 0 && $action == 2) {
+
+                if (DB::table('tbl_scorecard')->where('id', $id)->delete()) {
+                    $message = 'Record has been deleted successfully';
+                    return redirect()->route('scorecards')->with('message', $message);
+                } else {
+                    $message = 'Failed to delete record from database';
+                    return redirect()->route('scorecards')->with('message', $message);
+                };
+            } else {
+                $edit = DB::table('tbl_scorecard')
+                        ->join('tbl_scorecard_categories', 'tbl_scorecard.category_id', '=', 'tbl_scorecard_categories.id')
+                        ->select('tbl_scorecard.*', 'tbl_scorecard_categories.name as '
+                                . 'category', 'tbl_scorecard.name as scorecardname ', 'tbl_scorecard.id as scoreid')
+                        ->where('tbl_scorecard.id', $id)
+                        ->first();
+
+                return view('forms.editscorecards', ['scorecards' => $edit]);
+            }
+        }
+    }
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="users">
     public function verifyUser(Request $request) {
         if ($request->isMethod('post')) {
             $email = $request->input('email');
@@ -232,5 +299,5 @@ class HomeController extends Controller {
         }
         return view('index');
     }
-
+//</editor-fold>
 }
