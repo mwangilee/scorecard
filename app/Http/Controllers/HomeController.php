@@ -187,41 +187,52 @@ class HomeController extends Controller {
      /**
      * Display a list of the score cards in a grid.
      */
-        $scorecards = DB::table('tbl_scorecard')
-                ->join('tbl_scorecard_categories', 'tbl_scorecard.category_id', '=', 'tbl_scorecard_categories.id')
-                ->select('tbl_scorecard.*', 'tbl_scorecard_categories.name as '
-                        . 'category', 'tbl_scorecard.name as scorecardname ', 'tbl_scorecard.id as scoreid')
-                ->orderBy('tbl_scorecard.id', 'asc')
+        
+        
+        $weights = DB::table('tbl_scorecard_weights')
+                ->join('tbl_parameters', 'tbl_scorecard_weights.parameter_id', '=', 'tbl_parameters.id')
+                ->select('tbl_scorecard_weights.*', 'tbl_parameters.parametername', 
+                        'tbl_parameters.paramtype_bool as isboolean ', 'tbl_parameters.status as paramstatus')
+                ->orderBy('tbl_scorecard_weights.id', 'asc')
                 ->get();
+        
+      
 
-        return view('grids.scorecards', ['scorecards' => $scorecards]);
+        return view('grids.weights', ['weights' => $weights]);
     }
     
     public function addweights(Request $request) {
         
         if (Request::isMethod('post')) {
-     
-            if(DB::table('tbl_scorecard_categories')->insert([ 
-                'name' => Request::input('name'),
+           
+           $parameter_id = explode('-', Request::input('parametername'));
+           
+            if(DB::table('tbl_scorecard_weights')->insert([ 
+                'parameter_id' => trim($parameter_id[0]),
+                'min' => Request::input('min'),
+                'max' => Request::input('max'),
+                'value' => Request::input('value'),
+                'score' => Request::input('score'),
                 'status' => Request::input('status'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')])) {
                 
                  $message = 'Recored inserted successfully';
                  
-               return redirect()->route('categories')->with('message', $message);
+               return redirect()->route('weights')->with('message', $message);
                 
                 }else{
                     
                      $message = 'Recored failed to insert';
-            return redirect()->route('categories')->with('fail', $message);
+            return redirect()->route('weights')->with('fail', $message);
                     
                 };
            
             
         }else {
-            
-            return view('forms.addcategory');
+            $params = DB::table('tbl_parameters')
+                      ->get();
+            return view('forms.addweights', ['params' => $params]);
         }
         //
     }
@@ -230,44 +241,46 @@ class HomeController extends Controller {
 
 
         if (Request::isMethod('post')) {
-
             $id = Request::input('id');
             $data = [
-                'name' => Request::input('name'),
+                'min' => Request::input('min'),
+                'max' => Request::input('max'),
+                'value' => Request::input('value'),
+                'score' => Request::input('score'),
                 'status' => Request::input('status'),
-                'description' => Request::input('description'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')];
 
             if (isset($id) && $id > 0) {
 
-                if (DB::table('tbl_scorecard')->where('id', '=', $id)->update($data)) {
+                if (DB::table('tbl_scorecard_weights')->where('id', '=', $id)->update($data)) {
                     $message = 'Record has been updated successfully';
-                    return redirect()->route('scorecards')->with('message', $message);
+                    return redirect()->route('weights')->with('message', $message);
                 } else {
                     $message = 'Recored failed to update';
-                    return redirect()->route('scorecards')->with('fail', $message);
+                    return redirect()->route('weights')->with('fail', $message);
                 };
             } 
         } else {
 
             if (isset($id) && $id > 0 && $action == 2) {
 
-                if (DB::table('tbl_scorecard')->where('id', $id)->delete()) {
+                if (DB::table('tbl_scorecard_weights')->where('id', $id)->delete()) {
                     $message = 'Record has been deleted successfully';
-                    return redirect()->route('scorecards')->with('message', $message);
+                    return redirect()->route('weight')->with('message', $message);
                 } else {
                     $message = 'Failed to delete record from database';
-                    return redirect()->route('scorecards')->with('message', $message);
+                    return redirect()->route('weight')->with('fail', $message);
                 };
             } else {
-                $edit = DB::table('tbl_scorecard')
-                        ->join('tbl_scorecard_categories', 'tbl_scorecard.category_id', '=', 'tbl_scorecard_categories.id')
-                        ->select('tbl_scorecard.*', 'tbl_scorecard_categories.name as '
-                                . 'category', 'tbl_scorecard.name as scorecardname ', 'tbl_scorecard.id as scoreid')
-                        ->where('tbl_scorecard.id', $id)
-                        ->first();
+                
+                $edit = DB::table('tbl_scorecard_weights')
+                ->join('tbl_parameters', 'tbl_scorecard_weights.parameter_id', '=', 'tbl_parameters.id')
+                ->select('tbl_scorecard_weights.*', 'tbl_parameters.parametername', 
+                        'tbl_parameters.paramtype_bool as isboolean ', 'tbl_parameters.status as paramstatus')                ->orderBy('tbl_scorecard_weights.id', 'asc')
+                 ->where('tbl_scorecard_weights.id', $id)
+                 ->first();
 
-                return view('forms.editscorecards', ['scorecards' => $edit]);
+                return view('forms.editweights', ['weights' => $edit]);
             }
         }
     }

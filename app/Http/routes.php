@@ -15,10 +15,23 @@
 //<editor-fold defaultstate="collapsed" desc="HomeController">
 Route::any('/', ['as' => 'login','uses' => 'HomeController@index']);
 Route::any('/dashboard', ['as' => 'dashboard','uses' => 'HomeController@dashboard']);
+
 Route::get('/scorecards', ['as' => 'scorecards','uses' => 'HomeController@scorecards']);
 Route::any('/editscorecard/{id?}/{action?}/', ['as' => 'editscorecard','uses' => 'HomeController@editscorecard']);
-Route::any('/editcategories/{id?}/{action?}/', ['as' => 'editcategories','uses' => 'HomeController@editcategories']);
+
 Route::get('/categories', ['as' => 'categories','uses' => 'HomeController@categories']);
+Route::any('/editcategories/{id?}/{action?}/', ['as' => 'editcategories','uses' => 'HomeController@editcategories']);
+Route::any('/addcategory', ['as' => 'addcategory','uses' => 'HomeController@addcategory']);
+
+
+Route::get('/weights', ['as' => 'weights','uses' => 'HomeController@weights']);
+Route::any('/editweights/{id?}/{action?}/', ['as' => 'editweights','uses' => 'HomeController@editweights']);
+Route::any('/addweights', ['as' => 'addweights','uses' => 'HomeController@addweights']);
+
+Route::get('/parameters', ['as' => 'parameters','uses' => 'HomeController@parameters']);
+Route::any('/editparameters/{id?}/{action?}/', ['as' => 'editparameters','uses' => 'HomeController@editparameters']);
+Route::any('/addparameters', ['as' => 'addparameters','uses' => 'HomeController@addparameters']);
+
 
 
 //</editor-fold>

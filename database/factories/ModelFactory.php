@@ -40,6 +40,7 @@ $factory->define(App\ScoreCardWeights::class, function ($faker) {
         'min' => $faker->numberBetween(0,50),
         'max' => $faker->numberBetween(51,100),
         'score' => $faker->numberBetween(0,10),
+        'value' => $faker->word,
         'status'=> 'ACTIVE',
         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),

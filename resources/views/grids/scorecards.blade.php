@@ -4,28 +4,6 @@
 
 <div class="page page-tables-datatables">
 
-    <div class="pageheader">
-
-        <h2>Score Cards <span></span></h2>
-
-        <div class="page-bar">
-
-            <ul class="page-breadcrumb">
-                <li>
-                    <a href="index.html"><i class="fa fa-home"></i> Home</a>
-                </li>
-                <li>
-                    <a href="#">Tables</a>
-                </li>
-                <li>
-                    <a href="tables-datatables.html">Datatables</a>
-                </li>
-            </ul>
-
-        </div>
-
-    </div>
-
     <!-- row -->
     <div class="row">
         <!-- col -->

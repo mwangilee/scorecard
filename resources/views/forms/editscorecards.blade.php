@@ -6,23 +6,6 @@
 
 <div class="page page-forms-common">
 
-    <div class="pageheader">
-
-        <h2>Edit score cards <span></span></h2>
-
-        <div class="page-bar">
-
-            <ul class="page-breadcrumb">
-                <li>
-                    <a href="#"><i class="fa fa-home"></i> ScoreCard</a>
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
-
 
     <!-- row -->
     <div class="row">

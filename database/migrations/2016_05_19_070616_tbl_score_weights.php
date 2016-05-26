@@ -19,6 +19,7 @@ class TblScoreWeights extends Migration
                    ->onDelete('cascade');
             $table->bigInteger('min');
             $table->bigInteger('max');
+            $table->string('value');
             $table->bigInteger('score');
             $table->string('status');
             $table->timestamps();

@@ -4,27 +4,6 @@
 
 <div class="page page-tables-datatables">
 
-    <div class="pageheader">
-
-        <h2>Score Card Categories <span></span></h2>
-
-        <div class="page-bar">
-
-            <ul class="page-breadcrumb">
-                <li>
-                    <a href="index.html"><i class="fa fa-home"></i> Home</a>
-                </li>
-                <li>
-                    <a href="#">Tables</a>
-                </li>
-                <li>
-                    <a href="#">Datatables</a>
-                </li>
-            </ul>
-
-        </div>
-
-    </div>
 
     <!-- row -->
     <div class="row">
@@ -110,7 +89,7 @@
                                     <td>{{$index->updated_at}}</td>
                                     <td class="actions">
                                         <a href="{{url("/editcategories/$index->id/1")}}"class="text-primary text-uppercase text-strong text-sm mr-10">Edit</a>
-                                        <a href="{{url("/deletecategories/$index->id/2")}}"class="text-danger text-uppercase text-strong text-sm mr-10">Delete</a>
+                                        <a href="{{url("/editcategories/$index->id/2")}}"class="text-danger text-uppercase text-strong text-sm mr-10">Delete</a>
                                     </td>
 
                                 </tr>

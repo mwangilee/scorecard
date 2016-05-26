@@ -5,7 +5,8 @@
 
 
 <div class="page page-forms-common">
-    
+
+
     <!-- row -->
     <div class="row">
 
@@ -17,7 +18,7 @@
 
                 <!-- tile header -->
                 <div class="tile-header dvd dvd-btm">
-                    <h1 class="custom-font"><strong>Score </strong>Card</h1>
+                    <h1 class="custom-font"><strong>Scoring </strong>Categories</h1>
                     <ul class="controls">
                         <li class="dropdown">
 
@@ -53,17 +54,15 @@
 
                 <!-- tile body -->
                 <div class="tile-body">
-                    <form action="{{url('/editcategories')}}" method="post">
+                    <form action="{{url('/addcategory')}}" method="post">
                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                         <input type="hidden" name="id" value="{{$categories->id}}">
-                        
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" value="{{$categories->name}}" class="form-control" id="exampleInputEmail1" placeholder="Scorecard Name">
+                            <input type="text" name="name" value="" class="form-control" id="exampleInputEmail1" placeholder="Category Name">
                         </div>
                          <div class="form-group">
                             <label for="status">Status</label>
-                            <input type="text"name="status" value="{{$categories->status}}" class="form-control" id="exampleInputPassword1" placeholder="ACTIVE/INACTIVE">
+                            <input type="text"name="status" value="" class="form-control" id="exampleInputPassword1" placeholder="Category status ACTIVE/INACTIVE">
                         </div>
                         <input type="submit" name="" value="Submit" class="btn btn-rounded btn-success btn-sm">
                         <?php echo csrf_field(); ?>

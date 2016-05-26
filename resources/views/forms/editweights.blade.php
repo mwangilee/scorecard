@@ -2,10 +2,8 @@
 
 @section('content')
 
-
-
 <div class="page page-forms-common">
-    
+
     <!-- row -->
     <div class="row">
 
@@ -53,18 +51,44 @@
 
                 <!-- tile body -->
                 <div class="tile-body">
-                    <form action="{{url('/editcategories')}}" method="post">
+                    <form action="{{url('/editweights')}}" method="post">
                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                         <input type="hidden" name="id" value="{{$categories->id}}">
+                         <input type="hidden" name="id" value="{{$weights->id}}">
                         
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" value="{{$categories->name}}" class="form-control" id="exampleInputEmail1" placeholder="Scorecard Name">
+                            <label for="name">Parameter Name</label>
+                            <input type="text" disabled="true" name="name" value="{{$weights->parametername}}" class="form-control" id="exampleInputEmail1" placeholder="Scorecard Name">
                         </div>
                          <div class="form-group">
-                            <label for="status">Status</label>
-                            <input type="text"name="status" value="{{$categories->status}}" class="form-control" id="exampleInputPassword1" placeholder="ACTIVE/INACTIVE">
+                            <label for="exampleInputPassword1">Is Min/Max</label>
+                            @if ($weights->isboolean)
+                              <input type="text"disabled="true" name="isboolean" value="TRUE" class="form-control" id="exampleInputPassword1" placeholder="Description">
+                             @else
+                               <input type="text"disabled="true" name="isboolean" value="FALSE" class="form-control" id="exampleInputPassword1" placeholder="Description">
+                             @endif  
+                               
                         </div>
+                         <div class="form-group">
+                            <label for="min">Min</label>
+                            <input type="text"name="min" value="{{$weights->min}}" class="form-control" id="exampleInputPassword1" placeholder="please enter max value">
+                        </div>
+                        <div class="form-group">
+                            <label for="min">Max</label>
+                            <input type="text"name="max" value="{{$weights->max}}" class="form-control" id="exampleInputPassword1" placeholder="Please enter max value">
+                        </div>
+                        <div class="form-group">
+                            <label for="min">Value</label>
+                            <input type="text"name="value" value="{{$weights->value}}" class="form-control" id="exampleInputPassword1" placeholder="Please enter value">
+                        </div>
+                         <div class="form-group">
+                            <label for="min">Score</label>
+                            <input type="text"name="score" value="{{$weights->score}}" class="form-control" id="exampleInputPassword1" placeholder="Please enter score">
+                        </div>
+                         <div class="form-group">
+                            <label for="min">Weight Status</label>
+                            <input type="text"name="status" value="{{$weights->status}}" class="form-control" id="exampleInputPassword1" placeholder="Please enter score">
+                        </div>
+                         
                         <input type="submit" name="" value="Submit" class="btn btn-rounded btn-success btn-sm">
                         <?php echo csrf_field(); ?>
                     </form>
