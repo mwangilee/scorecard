@@ -15,6 +15,7 @@
 //<editor-fold defaultstate="collapsed" desc="HomeController">
 Route::any('/', ['as' => 'login','uses' => 'HomeController@index']);
 Route::any('/dashboard', ['as' => 'dashboard','uses' => 'HomeController@dashboard']);
+Route::any('/fileupload', ['as' => 'fileupload','uses' => 'HomeController@fileupload']);
 
 Route::get('/scorecards', ['as' => 'scorecards','uses' => 'HomeController@scorecards']);
 Route::any('/editscorecard/{id?}/{action?}/', ['as' => 'editscorecard','uses' => 'HomeController@editscorecard']);

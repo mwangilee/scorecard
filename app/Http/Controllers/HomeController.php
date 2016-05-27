@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Input;
 use Carbon\Carbon;
 use App\Categories;
 use App\Parameters;
@@ -15,6 +16,7 @@ use Validator;
 use Request;
 
 
+
 class HomeController extends Controller {
 
 //<editor-fold defaultstate="collapsed" desc="defaults">
@@ -24,20 +26,43 @@ class HomeController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function testDatabase() {
-        $user = factory(App\User::class)->make();
+    public function test() {
+   
 
         // Use model in tests...
     }
 
     public function index() {
 
-        return view('forms.scorecards', ['scorecards' => $scorecards]);
+        return view('forms.login');
     }
 
     public function dashboard() {
         return view('forms.dashboard');
     }
+    public function fileupload() {
+           if (Request::isMethod('post')) {
+                  // Request the file input named 'attachments'
+                    $files = Request::file('file');
+
+                    //If the array is not empty
+                    if ($files[0] != '') {
+                        
+                      foreach($files as $file) {
+                        // Set the destination path
+                        $destinationPath = 'uploads';
+                        // Get the orginal filname or create the filename of your choice
+                        $filename = $file->getClientOriginalName();
+                        // Copy the file in our upload folder
+                        $file->move($destinationPath, $filename);
+                      }
+                    }
+         
+                        }else {
+                                 return view('forms.fileupload');        
+                              }
+
+                      }
 //</editor-fold> 
 //<editor-fold defaultstate="collapsed" desc="scorecards">
     public function scorecards() {

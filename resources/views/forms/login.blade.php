@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="form-group text-left mt-20">
-                            <a href="index.html" class="btn btn-greensea b-0 br-2 mr-5">Login</a>
+                            <a href="{{url('/dashboard')}}" class="btn btn-greensea b-0 br-2 mr-5">Login</a>
                             <label class="checkbox checkbox-custom-alt checkbox-custom-sm inline-block">
                                 <input type="checkbox"><i></i> Remember me
                             </label>
