@@ -16,6 +16,7 @@ return [
     */
 
     'driver' => env('MAIL_DRIVER', 'smtp'),
+    'file_location' => '/var/www/html/scorecard/public/assets/js/vendor/file-upload/server/php/files/',
 
     /*
     |--------------------------------------------------------------------------

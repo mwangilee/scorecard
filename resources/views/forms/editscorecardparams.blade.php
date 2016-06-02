@@ -56,6 +56,13 @@
                     <form action="{{url('/editscorecardparams')}}" method="post">
                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
                          <input type="hidden" name="id" value="{{$scorecardparams->id}}">
+                         <div class="form-group">
+                            <label for="categoryname">Category Name</label>
+                            <select name="categoryname" class="form-control mb-5">     
+                                <option>{{$scorecardparams->category_id." - ".$scorecardparams->categoryname}}</option>
+                       
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="name">Parameter Name</label>
                             <input type="text" name="parametername" value="{{$scorecardparams->parametername}}" class="form-control" id="exampleInputEmail1" placeholder="Please enter the parameter name">

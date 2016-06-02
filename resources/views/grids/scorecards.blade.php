@@ -31,7 +31,7 @@
                     <h1 class="custom-font"><strong>Score</strong> Cards</h1>
                     <ul class="controls">
                         <li>
-                            <a role="button" tabindex="0" ><i class="fa fa-plus mr-5"></i> Add Entry</a>
+                            <a href="{{url("/fileupload")}}" ><i class="fa fa-upload"></i> Upload score card</a>
                         </li>
                         <li class="dropdown">
 

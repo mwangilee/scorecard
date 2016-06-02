@@ -17,6 +17,9 @@ class TblScoreWeights extends Migration
             $table->bigInteger('parameter_id');
             $table->foreign('parameter_id')->references('id')->on('tbl_parameters')
                    ->onDelete('cascade');
+            $table->bigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('tbl_scorecard_categories')
+                   ->onDelete('cascade');
             $table->bigInteger('min');
             $table->bigInteger('max');
             $table->string('value');

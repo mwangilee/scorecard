@@ -26,7 +26,7 @@
                 @endif
                 <!-- tile header -->
                 <div class="tile-header dvd dvd-btm">
-                    <h1 class="custom-font"><strong>Score</strong> Cards</h1>
+                    <h1 class="custom-font"><strong>Scoring</strong> Weights</h1>
                     <ul class="controls">
                         <li>
 
@@ -63,7 +63,7 @@
                     </ul>
                 </div>
                 <!-- /tile header -->
-
+ 
                 <!-- tile body -->
                 <div class="tile-body">
                     <div class="table-  responsive">
@@ -72,12 +72,12 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Parameter Name</th>
+                                    <th>Category</th>
                                     <th>Is Min/Max?</th>
                                     <th>Min</th>
                                     <th>Max</th>
                                     <th>Value</th>
                                     <th>Score</th>
-                                    <th>Parameter Status</th>
                                     <th>Weight Status</th>
                                     <th style="width: 160px;" class="no-sort">Actions</th>
                                 </tr>
@@ -87,6 +87,7 @@
                                 <tr class="odd gradeX">
                                     <td>{{$index->id}}</td>
                                     <td>{{$index->parametername}}</td>
+                                    <td>{{$index->categoryname}}</td>
                                     <td>
                                         @if ($index->isboolean)
                                             TRUE
@@ -98,7 +99,6 @@
                                     <td>{{$index->max}}</td>
                                     <td>{{$index->value}}</td>
                                     <td>{{$index->score}}</td>
-                                    <td>{{$index->paramstatus}}</td>
                                     <td>{{$index->status}}</td>
                                     <td class="actions">
                                         <a href="{{url("/editweights/$index->id/1")}}"class="text-primary text-uppercase text-strong text-sm mr-10">Edit</a>

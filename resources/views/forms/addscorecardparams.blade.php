@@ -56,6 +56,14 @@
                 <div class="tile-body">
                     <form action="{{url('/addscorecardparams')}}" method="post">
                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                         <div class="form-group">
+                            <label for="categoryname">Category Name</label>
+                            <select name="categoryname" class="form-control mb-5">
+                                  @foreach ($params as $index)
+                                <option>{{$index->id." - ".$index->name}}</option>
+                                 @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="name">Parameter Name</label>
                             <input type="text" name="parametername" value="" class="form-control" id="exampleInputEmail1" placeholder="Please enter the parameter name">

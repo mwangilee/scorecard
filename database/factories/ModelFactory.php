@@ -21,8 +21,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Parameters::class, function ($faker) {
-
-     return [      
+ $category_id = factory(App\Categories::class)->create()->id;
+     return [  
+        'category_id'=> $category_id,
         'parametername' => $faker->word,
         'paramtype_bool'=> $faker->boolean(50),
         'status'=> 'ACTIVE',
@@ -34,9 +35,10 @@ $factory->define(App\Parameters::class, function ($faker) {
 $factory->define(App\ScoreCardWeights::class, function ($faker) {
     
     $param_id = factory(App\Parameters::class)->create()->id;
-    
+    $category_id = factory(App\Categories::class)->create()->id;
      return [ 
         'parameter_id' => $param_id,
+        'category_id'=> $category_id,
         'min' => $faker->numberBetween(0,50),
         'max' => $faker->numberBetween(51,100),
         'score' => $faker->numberBetween(0,10),

@@ -33,6 +33,9 @@
                         <li>
                             <a href="{{url("/addscorecardparams")}}" ><i class="fa fa-plus mr-5"></i> Add Entry</a>
                         </li>
+                        <li>
+                            <a href="{{url("/uploadparams")}}" ><i class="fa fa-upload"></i> Upload Parameters</a>
+                        </li>
                         <li class="dropdown">
 
                             <a role="button" tabindex="0" class="dropdown-toggle settings" data-toggle="dropdown">
@@ -64,14 +67,14 @@
                     </ul>
                 </div>
                 <!-- /tile header -->
-
-                <!-- tile body -->
+           <!-- tile body -->
                 <div class="tile-body">
                     <div class="table-  responsive">
                         <table class="table table-custom" id="editable-usage">
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Category</th>
                                     <th>Parameter Name</th>
                                     <th>Is Min/Max?</th>
                                     <th>Status</th>
@@ -83,6 +86,7 @@
                                 @foreach ($scorecardparams as $index)
                                 <tr class="odd gradeX">
                                     <td>{{$index->id}}</td>
+                                    <td>{{$index->categoryname}}</td>
                                     <td>{{$index->parametername}}</td>
                                     <td>
                                          @if ($index->paramtype_bool)
