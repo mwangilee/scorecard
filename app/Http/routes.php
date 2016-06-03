@@ -48,5 +48,11 @@ Route::any('/addsystemparams', ['as' => 'addsystemparams','uses' => 'HomeControl
 
 Route::any('/uploadparams', ['as' => 'uploadparams','uses' => 'HomeController@uploadparams']);
 
+#API routes
+Route::get('/institution/api/init_scorecard', 'APIController@get_scorecard');
+Route::get('/createapikey/{id?}', 'InstitutionController@createaccount');
+Route::get('/test/', 'testController@create_institution_access_account');
+
+
 
 //<editor-fold defaultstate="collapsed" desc="uploads">

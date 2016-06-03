@@ -260,11 +260,11 @@ class HomeController extends Controller {
     public function addweights(Request $request) {
 
         if (Request::isMethod('post')) {
-
             $parameter_id = explode('-', Request::input('parametername'));
-
+            $data = DB::table('tbl_parameters')->where('id', trim($parameter_id[0]))->first();         
             if (DB::table('tbl_scorecard_weights')->insert([
                         'parameter_id' => trim($parameter_id[0]),
+                        'category_id' => $data->category_id,
                         'min' => Request::input('min'),
                         'max' => Request::input('max'),
                         'value' => Request::input('value'),
@@ -282,9 +282,10 @@ class HomeController extends Controller {
                 return redirect()->route('weights')->with('fail', $message);
             };
         } else {
-            $params = DB::table('tbl_scorecard_weights')
-                    ->get();
-
+            $params = DB::table('tbl_parameters')       
+                             ->get();
+           
+            
             return view('forms.addweights', ['params' => $params]);
         }
         //
@@ -327,8 +328,12 @@ class HomeController extends Controller {
             } else {
 
                 $edit = DB::table('tbl_scorecard_weights')
-                        ->join('tbl_parameters', 'tbl_scorecard_weights.parameter_id', '=', 'tbl_parameters.id')
-                        ->select('tbl_scorecard_weights.*', 'tbl_parameters.parametername', 'tbl_parameters.paramtype_bool as isboolean ', 'tbl_parameters.status as paramstatus')->orderBy('tbl_scorecard_weights.id', 'asc')
+                        ->join('tbl_parameters', 'tbl_scorecard_weights.parameter_id',
+                                '=', 'tbl_parameters.id')
+                        ->select('tbl_scorecard_weights.*', 'tbl_parameters.parametername',
+                                'tbl_parameters.paramtype_bool as isboolean ',
+                                'tbl_parameters.status as paramstatus')
+                        ->orderBy('tbl_scorecard_weights.id', 'asc')
                         ->where('tbl_scorecard_weights.id', $id)
                         ->first();
 
@@ -524,4 +529,17 @@ class HomeController extends Controller {
     }
 
 //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="testarray">
+      public function testuploads() {
+          
+       $result = DB::select('select * from tbl_parameters');
+       
+       $result2 = DB::select('select * from tbl_scorecard_imports');
+       
+       
+       dd($result2);
+    
+      }
+    //</editor-fold>
+    
 }

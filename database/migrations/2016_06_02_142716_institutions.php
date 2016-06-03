@@ -22,7 +22,6 @@ class Institutions extends Migration
             $table->string('msisdn'); 
             $table->string('isConfirmed'); 
             $table->string('activation_code'); 
-            $table->string('filename');
             $table->string('status');
             $table->timestamps();
         });
