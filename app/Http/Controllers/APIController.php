@@ -26,7 +26,8 @@ class APIController extends Controller
         $this->api_key = $headers['Api-Key'];
         $this->password = $headers['Password'];
         $this->institution_id = $headers['Institution_ID'];
-        $this->request_meta = [];
+        //$this->request_meta = [];
+        //dd($this->request_meta[] = Request::input());
         $this->institution_ref_id = '';
         $this->response = [];
         
@@ -73,6 +74,7 @@ class APIController extends Controller
                     'Content-Type', 'Content-type: application/json');
         }
         
+        dd($this->request_meta);
         // save the request
         if (ApiController::log_request($this->institution_id, 
                 $this->institution_ref_id, $this->request_meta)) {

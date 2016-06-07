@@ -13,7 +13,7 @@
 
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="index">
-Route::any('/', ['as' => 'login','uses' => 'HomeController@index']);
+Route::any('/', ['as' => 'login','uses' => 'UsersController@index']);
 Route::any('/dashboard', ['as' => 'dashboard','uses' => 'HomeController@dashboard']);
 Route::any('/fileupload', ['as' => 'fileupload','uses' => 'HomeController@fileupload']);
 //</editor-fold>
@@ -44,14 +44,24 @@ Route::any('/editsystemparams/{id?}/{action?}/', ['as' => 'editsystemparams','us
 Route::any('/addsystemparams', ['as' => 'addsystemparams','uses' => 'HomeController@addsystemparams']);
 
 //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="users">
+Route::any('/users', ['as' => 'users','uses' => 'UsersController@users']);
+Route::any('/adduser', ['as' => 'adduser','uses' => 'UsersController@adduser']);
+Route::any('/edituser/{id?}', ['as' => 'edituser','uses' => 'UsersController@edituser']);
+Route::any('/deleteuser/{id?}', ['as' => 'deleteuser','uses' => 'UsersController@deleteuser']);
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="roles">
+Route::any('/roles', ['as' => 'users','uses' => 'UsersController@users']);
 //</editor-fold>
 
 Route::any('/uploadparams', ['as' => 'uploadparams','uses' => 'HomeController@uploadparams']);
+Route::any('/scoresummaries', ['as' => 'scoresummaries','uses' => 'HomeController@scoresummaries']);
 
 #API routes
 Route::get('/institution/api/init_scorecard', 'APIController@get_scorecard');
 Route::get('/createapikey/{id?}', 'InstitutionController@createaccount');
 Route::get('/test/', 'testController@create_institution_access_account');
+
 
 
 

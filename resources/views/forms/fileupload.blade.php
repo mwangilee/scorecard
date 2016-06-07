@@ -298,7 +298,7 @@
                                         <!--<noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>-->
                                         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                                         <div class="form-group">
-                                            <label for="categoryname">Category Name</label>
+                                            <label for="categoryname">Template Name</label>
                                             <select name="categoryname" class="form-control mb-0">
                                                 @foreach ($params as $index)
                                                 <option>{{$index->id." - ".$index->name}}</option>
@@ -307,7 +307,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Score Card Name</label>
-                                            <input type="text" name="name" value="" class="form-control" id="exampleInputEmail1" placeholder="Category Name">
+                                            <input type="text" name="scorecardname" value="" class="form-control" id="exampleInputEmail1" placeholder="Category Name" required="">
                                         </div>
                                         <div class="row fileupload-buttonbar">
                                             <div class="col-lg-7">

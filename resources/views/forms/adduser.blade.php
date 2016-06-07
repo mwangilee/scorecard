@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <div class="page page-forms-common">
 
 
@@ -16,7 +17,7 @@
 
                 <!-- tile header -->
                 <div class="tile-header dvd dvd-btm">
-                    <h1 class="custom-font"><strong>Scorecard </strong>Parameters</h1>
+                    <h1 class="custom-font"><strong>Add </strong>Users</h1>
                     <ul class="controls">
                         <li class="dropdown">
 
@@ -52,30 +53,34 @@
 
                 <!-- tile body -->
                 <div class="tile-body">
-                    <form action="{{url('/addscorecardparams')}}" method="post">
+                    <form action="{{url('/adduser')}}" method="post">
                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" value="" class="form-control" id="exampleInputEmail1" placeholder="Please enter the Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" value="" class="form-control" id="exampleInputEmail1" placeholder="Please enter the email">
+                        </div>
                          <div class="form-group">
-                            <label for="categoryname">Category Name</label>
-                            <select name="categoryname" class="form-control mb-5">
-                                  @foreach ($params as $index)
-                                <option>{{$index->id." - ".$index->name}}</option>
-                                 @endforeach
-                            </select>
+                            <label for="email">Password</label>
+                            <input type="password" name="password" value="" class="form-control" id="exampleInputEmail1" placeholder="Please enter the default password">
                         </div>
-                        <div class="form-group">
-                            <label for="name">Parameter Name</label>
-                            <input type="text" name="parametername" value="" class="form-control" id="exampleInputEmail1" placeholder="Please enter the parameter name">
-                        </div>
-                        <div class="form-group">
-                            <label for="parametername">Is Min/Max?</label>
-                            <select name="paramtype_bool" class="form-control mb-5">         
-                                <option>True</option>
-                                <option>False</option>
+                         <div class="form-group">
+                            <label for="role">Role</label>
+                            <select name="role" class="form-control mb-5">
+                                <option>ADMIN</option>
+                                <option>MAKER</option>
+                                <option>CHECKER</option>
                             </select>
                         </div>
                          <div class="form-group">
                             <label for="status">Status</label>
-                            <input type="text"name="status" value="" class="form-control" id="exampleInputPassword1" placeholder="Please enter the parameter status {ACTIVE/INACTIVE}">
+                            <select name="status" class="form-control mb-5">
+                                <option>ACTIVE</option>
+                                <option>INACTIVE</option>
+                            </select>
                         </div>
                         <input type="submit" name="" value="Submit" class="btn btn-rounded btn-success btn-sm">
                         <?php echo csrf_field(); ?>

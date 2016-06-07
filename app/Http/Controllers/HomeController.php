@@ -8,7 +8,9 @@ use Carbon\Carbon;
 use App\Categories;
 use App\Parameters;
 use App\ScoreCard;
+use App\ImportSummary;
 use App\ScoreCardWeights;
+use App\ScoreCardImports;
 use Symfony\Component\Finder\Tests\Iterator\Iterator;
 use Illuminate\Support\Facades\Config;
 use App\User;
@@ -32,19 +34,35 @@ class HomeController extends Controller {
     }
 
     public function index() {
-
-        return view('forms.login');
+        
+       return view('forms.login');
+      
     }
 
     public function dashboard() {
         return view('forms.dashboard');
     }
+    
+    public function scoresummaries() {
+        $summary = DB::table('tbl_scorecard')
+                ->select('name', DB::raw('SUM(score) as total_score'))
+                ->groupBy('name')
+                ->get();
+        
+        return view('grids.scoresummaries', ['summary' => $summary]);
+        
+    }
 
     public function fileupload() {
+        HomeController::getscorecards();
         if (Request::isMethod('post')) {
 
-            $files = json_decode(file_get_contents(url('/assets/js/vendor/file-upload/server/php/')), true);
-
+            
+            $files = HomeController::url_get_contents(url('/assets/js/vendor/file-upload/server/php/'));
+            $scorecardname = Request::input('scorecardname');
+            $categoryname = explode('-', Request::input('categoryname'));
+            $categoryid = trim($categoryname[0]);
+    
             // Request the file input named 'attachments'
             //$files = Request::file('file');
             foreach ($files as $key => $story) {
@@ -57,13 +75,14 @@ class HomeController extends Controller {
                                 $file = $subvalue['url'];
                                 $file = fopen($file, "r");
                                 $i = 0;
+                                $refNumber = strtoupper(date('i') . str_random(4) . '09');
                                 while (!feof($file)) {
                                     $value = (fgetcsv($file, 0, ','));
                                     if ($i > 0) {
                                         if ($value[0] != '') {
                                             $inserts[] = "('" . $value[0] . "','"
                                                     . $value["1"] . "','"
-                                                    . $value["2"] . "','"
+                                                    . $refNumber . "','"
                                                     . $filename . "','"
                                                     . 0 . "','"
                                                     . Carbon::now()->format('Y-m-d H:i:s') . "','"
@@ -74,9 +93,22 @@ class HomeController extends Controller {
                                     }
                                     $i++;
                                 }
-
-                                DB::insert("INSERT INTO tbl_scorecard_imports (param_1,param_2,param_3,file_name,status,created_at,updated_at) VALUES " . implode(",", $inserts));
                                 fclose($file);
+                                if(DB::insert("INSERT INTO tbl_scorecard_imports (param,value,ref_id,file_name,status,created_at,updated_at) VALUES " . implode(",", $inserts))){
+                                       
+                                    DB::table('tblimportsummary')->insert([
+                                             'category_id' => $categoryid,
+                                             'ref_id' => $refNumber,
+                                             'filename' => $filename, 
+                                             'scorecardname' => $scorecardname,
+                                             'status' => 0,
+                                             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                                             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                                        ]);
+                                   
+                                }
+                                
+                                HomeController::getscorecards();    
 
                                 /* $filelocation = Config::get('mail.file_location').$filename;
                                   $insert = DB::select("SELECT * from fn_copy_from_csv('tbl_scorecard_imports', 'param_1 ,param_2,param_3', '$filelocation', false, false, ',', '','''''', '\', '')");
@@ -113,6 +145,52 @@ class HomeController extends Controller {
                 ->orderBy('tbl_scorecard.id', 'asc')
                 ->get();
 
+        return view('grids.scorecards', ['scorecards' => $scorecards]);
+    }
+    
+    public function getscorecards() {
+        /**
+        * Display a list of the score cards in a grid.
+         */
+        $scorecards = ImportSummary::getUnprocessedFiles();
+        $reference= null;
+        $recordset =  null;
+        if($scorecards!=null){
+           foreach ($scorecards as $key) {
+                $scorecardid = $key->id;
+                $ref_id = $key->ref_id;
+                $scorecardname = $key->scorecardname;
+                $category_id = $key->category_id;     
+                $recordset = ScoreCardImports::getUnprocessedImports($ref_id);
+                if($recordset!=null){
+                    
+                         foreach ($recordset as $record) {
+                    
+                                $reference = $record->ref_id;
+                                $parameter =$record->param;
+                                $value = $record->value;
+
+                                $id = Parameters::getParameterId($parameter);
+                                //dd($id->id.'-'.$category_id.'-'.$value);
+                                $score = ScoreCardWeights::getScore($id->id, $category_id, $value);
+                                DB::table('tbl_scorecard')->insert([
+                                    'category_id' => $category_id,
+                                    'name' => $scorecardname,
+                                    'description' => $parameter,
+                                    'score' => $score->score,
+                                    'status' => 1,
+                                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+                         
+                    
+                  }
+                DB::table('tbl_scorecard_imports')->where('ref_id', $reference)->update(['status' => 1]);
+               }
+                
+            }
+        
+           DB::table('tblimportsummary')->where('id', $scorecardid)->update(['status' => 1]);
+        }
         return view('grids.scorecards', ['scorecards' => $scorecards]);
     }
 
@@ -249,7 +327,7 @@ class HomeController extends Controller {
                 ->join('tbl_parameters', 'tbl_scorecard_weights.parameter_id', '=', 'tbl_parameters.id')
                 ->join('tbl_scorecard_categories', 'tbl_parameters.category_id', '=', 'tbl_scorecard_categories.id')
                 ->select('tbl_scorecard_weights.*', 'tbl_scorecard_categories.name as categoryname', 'tbl_parameters.parametername', 'tbl_parameters.paramtype_bool as isboolean ', 'tbl_parameters.status as paramstatus')
-                ->orderBy('tbl_scorecard_weights.id', 'asc')
+                ->orderBy('tbl_parameters.id', 'asc')
                 ->get();
 
 
@@ -450,7 +528,7 @@ class HomeController extends Controller {
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="uploadparams">
     public function uploadparams() {
-
+    
         if (Request::isMethod('post')) {
            
             $category_id = explode('-', Request::input('categoryname'));
@@ -484,6 +562,7 @@ class HomeController extends Controller {
                                 DB::insert("INSERT INTO tbl_parameters (category_id,parametername,paramtype_bool,status,created_at,updated_at) VALUES " . implode(",", $inserts));
                                 fclose($file);
                                 return redirect()->route('uploadparams')->with('message', 'file uploaded successfully');
+                                 
                             }
                         } else {           
                         }
@@ -541,5 +620,17 @@ class HomeController extends Controller {
     
       }
     //</editor-fold>
+      
+            function url_get_contents ($Url) {
+             if (!function_exists('curl_init')){ 
+                 die('CURL is not installed!');
+             }
+             $ch = curl_init();
+             curl_setopt($ch, CURLOPT_URL, $Url);
+             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+             $output = curl_exec($ch);
+             curl_close($ch);
+             return $output;
+}
     
 }

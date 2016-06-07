@@ -26,6 +26,9 @@ class TblScoreWeights extends Migration
             $table->bigInteger('score');
             $table->string('status');
             $table->timestamps();
+            
+            
+            
         });
     }
 

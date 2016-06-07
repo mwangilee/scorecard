@@ -18,7 +18,7 @@ class TblParameters extends Migration
             $table->foreign('category_id')->references('id')->on('tbl_scorecard_categories')
                    ->onDelete('cascade');
             $table->string('parametername',100)->unique();
-            $table->boolean('paramtype_bool');
+            $table->boolean('paramtype_bool')->nullable();;
             $table->string('status');
             $table->timestamps();
         });

@@ -31,7 +31,7 @@
                     <ul class="controls">
                         <li>
 
-                            <a href="{{url("/addcategory")}}" ><i class="fa fa-plus mr-5"></i> Add Entry</a>
+                            <a href="{{url("/adduser")}}" ><i class="fa fa-plus mr-5"></i> Add Users</a>
                         </li>
                         <li class="dropdown">
 
@@ -72,24 +72,26 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Template Name</th>
+                                    <th>User Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
                                     <th>Status</th>
-                                    <th>Date Created</th>
-                                    <th>Date Updated</th>
+                                    <th>Created at</th>
                                     <th style="width: 160px;" class="no-sort">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $index)
+                                @foreach ($users as $index)
                                 <tr class="odd gradeX">
                                     <td>{{$index->id}}</td>
                                     <td>{{$index->name}}</td>
+                                    <td>{{$index->email}}</td>
+                                    <td>{{$index->role}}</td>
                                     <td>{{$index->status}}</td>
                                     <td>{{$index->created_at}}</td>
-                                    <td>{{$index->updated_at}}</td>
                                     <td class="actions">
-                                        <a href="{{url("/editcategories/$index->id/1")}}"class="text-primary text-uppercase text-strong text-sm mr-10">Edit</a>
-                                        <a href="{{url("/editcategories/$index->id/2")}}"class="text-danger text-uppercase text-strong text-sm mr-10">Delete</a>
+                                        <a href="{{url("/edituser/$index->id")}}"class="text-primary text-uppercase text-strong text-sm mr-10">Edit</a>
+                                        <a href="{{url("/deleteuser/$index->id")}}"class="text-danger text-uppercase text-strong text-sm mr-10">Delete</a>
                                     </td>
 
                                 </tr>

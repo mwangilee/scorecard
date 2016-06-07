@@ -29,10 +29,6 @@
         <link rel="stylesheet" href="{{ url('assets/js/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css')}}">
         <link rel="stylesheet" href="{{ url('assets/js/vendor/datatables/css/jquery.dataTables.min.css')}}">
         <link rel="stylesheet" href="{{ url('assets/js/vendor/datatables/datatables.bootstrap.min.css')}}">
-        <link rel="stylesheet" href="{{ url('assets/js/vendor/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css')}}">
-        <link rel="stylesheet" href="{{ url('assets/js/vendor/datatables/extensions/Responsive/css/dataTables.responsive.css')}}">
-        <link rel="stylesheet" href="{{ url('assets/js/vendor/datatables/extensions/ColVis/css/dataTables.colVis.min.css')}}">
-        <link rel="stylesheet" href="{{ url('assets/js/vendor/datatables/extensions/TableTools/css/dataTables.tableTools.min.css')}}">
         <link rel="stylesheet" href="{{ url('assets/js/vendor/chosen/chosen.css')}}">
         <link rel="stylesheet" href="{{ url('assets/js/vendor/summernote/summernote.css')}}">
         <link rel="stylesheet" href="{{ url('assets/js/vendor/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css')}}">
@@ -180,6 +176,7 @@ $.ajaxSetup({
                                             <li>
                                                 <a role="button" tabindex="0"><i class="fa fa-list"></i> <span>Score Cards</span></a>
                                                 <ul>
+                                                    <li><a href="{{url('/scoresummaries')}}"><i class="fa fa-caret-right"></i>View Summaries</a></li>
                                                     <li><a href="{{url('/fileupload')}}"><i class="fa fa-caret-right"></i>Upload New</a></li>
                                                     <li><a href="{{url('/scorecards')}}"><i class="fa fa-caret-right"></i>View</a></li>
 
@@ -188,7 +185,7 @@ $.ajaxSetup({
                                             <li>
                                                 <a role="button" tabindex="0"><i class="fa fa-pencil"></i> <span>Parameters</span></a>
                                                 <ul>
-                                                    <li><a href="{{url('/categories')}}"><i class="fa fa-caret-right"></i> Scoring Categories</a></li>
+                                                    <li><a href="{{url('/categories')}}"><i class="fa fa-caret-right"></i> Scoring Templates</a></li>
                                                     <li><a href="{{url('/scorecardparams')}}"><i class="fa fa-caret-right"></i> Scorecard Parameters</a></li>
                                                     <li><a href="{{url('/weights')}}"><i class="fa fa-caret-right"></i> Scoring Weights</a></li>
                                                     <li><a href="{{url('/systemparams')}}"><i class="fa fa-caret-right"></i> System Parameters</a></li>
@@ -199,8 +196,7 @@ $.ajaxSetup({
                                             <li>
                                                 <a role="button" tabindex="0"><i class="fa fa-desktop"></i> <span>Administration</span></a>
                                                 <ul>
-                                                    <li><a href="login.html"><i class="fa fa-caret-right"></i> Users</a></li>
-                                                    <li><a href="signup.html"><i class="fa fa-caret-right"></i> Roles</a></li>
+                                                    <li><a href="{{url('/users')}}"><i class="fa fa-caret-right"></i> Users</a></li>
                                                 </ul>
                                             </li>
 
@@ -248,108 +244,37 @@ $.ajaxSetup({
         ============================================= -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script> window.jQuery || document.write('<script src="assets/js/vendor/jquery/jquery-1.11.2.min.js"><\/script>')</script>
-
         <script src="{{ url('assets/js/vendor/bootstrap/bootstrap.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/jRespond/jRespond.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/d3/d3.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/d3/d3.layout.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/rickshaw/rickshaw.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/sparkline/jquery.sparkline.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/slimscroll/jquery.slimscroll.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/animsition/js/jquery.animsition.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/daterangepicker/moment.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/daterangepicker/daterangepicker.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/screenfull/screenfull.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/flot/jquery.flot.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/flot-tooltip/jquery.flot.tooltip.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/flot-spline/jquery.flot.spline.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/easypiechart/jquery.easypiechart.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/raphael/raphael-min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/morris/morris.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/owl-carousel/owl.carousel.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/datatables/extensions/dataTables.bootstrap.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/chosen/chosen.jquery.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/summernote/summernote.min.js')}}"></script>
-
         <script src="{{ url('assets/js/vendor/coolclock/coolclock.js')}}"></script>
         <script src="{{ url('assets/js/vendor/coolclock/excanvas.js')}}"></script>
-        <!--/ vendor javascripts -->
-
-
-
-
-        <!-- ============================================
-        ============== Vendor JavaScripts ===============
-        ============================================= -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script> window.jQuery || document.write('<script src="assets/js/vendor/jquery/jquery-1.11.2.min.js"><\/script>')</script>
-
-        <script src="{{ url('assets/js/vendor/bootstrap/bootstrap.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/jRespond/jRespond.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/d3/d3.min.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/d3/d3.layout.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/rickshaw/rickshaw.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/sparkline/jquery.sparkline.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/slimscroll/jquery.slimscroll.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/animsition/js/jquery.animsition.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/daterangepicker/moment.min.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/daterangepicker/daterangepicker.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/screenfull/screenfull.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/flot/jquery.flot.min.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/flot-tooltip/jquery.flot.tooltip.min.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/flot-spline/jquery.flot.spline.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/easypiechart/jquery.easypiechart.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/raphael/raphael-min.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/morris/morris.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/owl-carousel/owl.carousel.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/datatables/extensions/dataTables.bootstrap.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/chosen/chosen.jquery.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/summernote/summernote.min.js')}}"></script>
-
-        <script src="{{ url('assets/js/vendor/coolclock/coolclock.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/coolclock/excanvas.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/datatables/extensions/ColVis/js/dataTables.colVis.min.js')}}"></script>
         <script src="{{ url('assets/js/vendor/datatables/extensions/TableTools/js/dataTables.tableTools.min.js')}}"></script>
-        <script src="{{ url('assets/js/vendor/datatables/extensions/dataTables.bootstrap.js')}}"></script>
+        <script src="{{ url('assets/js/vendor/parsley/parsley.min.js')}}"></script>
+        <script src="{{ url('assets/js/vendor/form-wizard/jquery.bootstrap.wizard.min.js')}}"></script>
         <!--/ vendor javascripts -->
 
 
@@ -373,217 +298,221 @@ $.ajaxSetup({
         <!--/ Page Specific Scripts -->
 
 
+       
+        
+
         <script>
-$(window).load(function () {
+            $(window).load(function () {
 
-//initialize basic datatable
-    var table = $('#basic-usage').DataTable({
-        "ajax": 'assets/extras/datatables-basic.json',
-        "columns": [
-            {"data": "id"},
-            {"data": "firstName"},
-            {"data": "lastName"}
-        ],
-        "aoColumnDefs": [
-            {'bSortable': false, 'aTargets': ["no-sort"]}
-        ],
-        "dom": 'Rlfrtip'
-    });
+        //initialize basic datatable
+                var table = $('#basic-usage').DataTable({
+                    "ajax": 'assets/extras/datatables-basic.json',
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "firstName"},
+                        {"data": "lastName"}
+                    ],
+                    "aoColumnDefs": [
+                        {'bSortable': false, 'aTargets': ["no-sort"]}
+                    ],
+                    "dom": 'Rlfrtip'
+                });
 
-    $('#basic-usage tbody').on('click', 'tr', function () {
-        if ($(this).hasClass('row_selected')) {
-            $(this).removeClass('row_selected');
-        }
-        else {
-            table.$('tr.row_selected').removeClass('row_selected');
-            $(this).addClass('row_selected');
-        }
-    });
-//*initialize basic datatable
-
-
+                $('#basic-usage tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('row_selected')) {
+                        $(this).removeClass('row_selected');
+                    }
+                    else {
+                        table.$('tr.row_selected').removeClass('row_selected');
+                        $(this).addClass('row_selected');
+                    }
+                });
+        //*initialize basic datatable
 
 
-//initialize editable datatable
 
-    function restoreRow(oTable, nRow) {
-        var aData = oTable.row(nRow).data();
-        var jqTds = $('>td', nRow);
 
-        for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-            oTable.row(nRow).data(aData[i]);
-        }
+        //initialize editable datatable
 
-        oTable.draw();
-    }
+                function restoreRow(oTable, nRow) {
+                    var aData = oTable.row(nRow).data();
+                    var jqTds = $('>td', nRow);
 
-    function editRow(oTable, nRow) {
-        var aData = oTable.row(nRow).data();
-        var jqTds = $('>td', nRow);
-        jqTds[0].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[0] + '">';
-        jqTds[1].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[1] + '">';
-        jqTds[2].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[2] + '">';
-        jqTds[3].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[3] + '">';
-        jqTds[4].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[4] + '">';
-        jqTds[5].innerHTML = '<a role="button" tabindex="0" class="edit text-success text-uppercase text-strong text-sm mr-10">Save</a><a role="button" tabindex="0" class="cancel text-warning text-uppercase text-strong text-sm mr-10">Cancel</a>';
-    }
+                    for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                        oTable.row(nRow).data(aData[i]);
+                    }
 
-    function saveRow(oTable, nRow) {
-        var jqInputs = $('input', nRow);
-        oTable.cell(nRow, 0).data(jqInputs[0].value);
-        oTable.cell(nRow, 1).data(jqInputs[1].value);
-        oTable.cell(nRow, 2).data(jqInputs[2].value);
-        oTable.cell(nRow, 3).data(jqInputs[3].value);
-        oTable.cell(nRow, 4).data(jqInputs[4].value);
-        oTable.cell(nRow, 5).data('<a role="button" tabindex="0" class="edit text-primary text-uppercase text-strong text-sm mr-10">Edit</a><a role="button" tabindex="0" class="delete text-danger text-uppercase text-strong text-sm mr-10">Remove</a>');
-        oTable.draw();
-    }
+                    oTable.draw();
+                }
 
-    var table2 = $('#editable-usage');
+                function editRow(oTable, nRow) {
+                    var aData = oTable.row(nRow).data();
+                    var jqTds = $('>td', nRow);
+                    jqTds[0].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[0] + '">';
+                    jqTds[1].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[1] + '">';
+                    jqTds[2].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[2] + '">';
+                    jqTds[3].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[3] + '">';
+                    jqTds[4].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[4] + '">';
+                    jqTds[5].innerHTML = '<a role="button" tabindex="0" class="edit text-success text-uppercase text-strong text-sm mr-10">Save</a><a role="button" tabindex="0" class="cancel text-warning text-uppercase text-strong text-sm mr-10">Cancel</a>';
+                }
 
-    var oTable = $('#editable-usage').DataTable({
-        "aoColumnDefs": [
-            {'bSortable': false, 'aTargets': ["no-sort"]}
-        ]
-    });
+                function saveRow(oTable, nRow) {
+                    var jqInputs = $('input', nRow);
+                    oTable.cell(nRow, 0).data(jqInputs[0].value);
+                    oTable.cell(nRow, 1).data(jqInputs[1].value);
+                    oTable.cell(nRow, 2).data(jqInputs[2].value);
+                    oTable.cell(nRow, 3).data(jqInputs[3].value);
+                    oTable.cell(nRow, 4).data(jqInputs[4].value);
+                    oTable.cell(nRow, 5).data('<a role="button" tabindex="0" class="edit text-primary text-uppercase text-strong text-sm mr-10">Edit</a><a role="button" tabindex="0" class="delete text-danger text-uppercase text-strong text-sm mr-10">Remove</a>');
+                    oTable.draw();
+                }
 
-    var nEditing = null;
-    var nNew = false;
+                var table2 = $('#editable-usage');
 
-    $('#add-entry').click(function (e) {
-        e.preventDefault();
+                var oTable = $('#editable-usage').DataTable({
+                    "aoColumnDefs": [
+                        {'bSortable': false, 'aTargets': ["no-sort"]}
+                    ]
+                });
 
-        if (nNew && nEditing) {
-            if (confirm("Previous row is not saved yet. Save it ?")) {
-                saveRow(oTable, nEditing); // save
-                $(nEditing).find("td:first").html("Untitled");
-                nEditing = null;
-                nNew = false;
+                var nEditing = null;
+                var nNew = false;
 
-            } else {
-                oTable.row(nEditing).remove().draw(); // cancel
-                nEditing = null;
-                nNew = false;
+                $('#add-entry').click(function (e) {
+                    e.preventDefault();
 
-                return;
-            }
-        }
+                    if (nNew && nEditing) {
+                        if (confirm("Previous row is not saved yet. Save it ?")) {
+                            saveRow(oTable, nEditing); // save
+                            $(nEditing).find("td:first").html("Untitled");
+                            nEditing = null;
+                            nNew = false;
 
-        var aiNew = oTable.row.add(['', '', '', '', '', '', '']).draw();
-        var nRow = oTable.row(aiNew[0]).node();
-        editRow(oTable, nRow);
-        nEditing = nRow;
-        nNew = true;
-    });
+                        } else {
+                            oTable.row(nEditing).remove().draw(); // cancel
+                            nEditing = null;
+                            nNew = false;
 
-    table2.on('click', '.delete', function (e) {
-        e.preventDefault();
+                            return;
+                        }
+                    }
 
-        if (confirm("Are you sure?") == false) {
-            return;
-        }
+                    var aiNew = oTable.row.add(['', '', '', '', '', '', '']).draw();
+                    var nRow = oTable.row(aiNew[0]).node();
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                    nNew = true;
+                });
 
-        var nRow = $(this).parents('tr')[0];
-        oTable.row(nRow).remove().draw();
-        alert("Deleted!");
-    });
+                table2.on('click', '.delete', function (e) {
+                    e.preventDefault();
 
-    table2.on('click', '.cancel', function (e) {
-        e.preventDefault();
-        if (nNew) {
-            oTable.row(nEditing).remove().draw();
-            nEditing = null;
-            nNew = false;
-        } else {
-            restoreRow(oTable, nEditing);
-            nEditing = null;
-        }
-    });
+                    if (confirm("Are you sure?") == false) {
+                        return;
+                    }
 
-    table2.on('click', '.edit', function (e) {
-        e.preventDefault();
+                    var nRow = $(this).parents('tr')[0];
+                    oTable.row(nRow).remove().draw();
+                    alert("Deleted!");
+                });
 
-        /* Get the row as a parent of the link that was clicked on */
-        var nRow = $(this).parents('tr')[0];
+                table2.on('click', '.cancel', function (e) {
+                    e.preventDefault();
+                    if (nNew) {
+                        oTable.row(nEditing).remove().draw();
+                        nEditing = null;
+                        nNew = false;
+                    } else {
+                        restoreRow(oTable, nEditing);
+                        nEditing = null;
+                    }
+                });
 
-        if (nEditing !== null && nEditing != nRow) {
-            /* Currently editing - but not this row - restore the old before continuing to edit mode */
-            restoreRow(oTable, nEditing);
-            editRow(oTable, nRow);
-            nEditing = nRow;
-        } else if (nEditing == nRow && this.innerHTML == "Save") {
-            /* Editing this row and want to save it */
-            saveRow(oTable, nEditing);
-            nEditing = null;
-            alert("Updated!");
-        } else {
-            /* No edit in progress - let's start one */
-            editRow(oTable, nRow);
-            nEditing = nRow;
-        }
-    });
-//*initialize editable datatable
+                table2.on('click', '.edit', function (e) {
+                    e.preventDefault();
 
-//initialize responsive datatable
-    var table3 = $('#responsive-usage').DataTable({
-        "ajax": 'assets/extras/datatables-responsive.json',
-        "columns": [
-            {"data": "id"},
-            {"data": "firstName"},
-            {"data": "lastName"},
-            {"data": "tel"},
-            {"data": "address"},
-            {"data": "city"},
-            {"data": "state"},
-            {"data": "zip"}
-        ],
-        "aoColumnDefs": [
-            {'bSortable': false, 'aTargets': ["no-sort"]}
-        ]
-    });
-//*initialize responsive datatable
+                    /* Get the row as a parent of the link that was clicked on */
+                    var nRow = $(this).parents('tr')[0];
 
-//initialize responsive datatable
-    function stateChange(iColumn, bVisible) {
-        console.log('The column', iColumn, ' has changed its status to', bVisible);
-    }
+                    if (nEditing !== null && nEditing != nRow) {
+                        /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                        restoreRow(oTable, nEditing);
+                        editRow(oTable, nRow);
+                        nEditing = nRow;
+                    } else if (nEditing == nRow && this.innerHTML == "Save") {
+                        /* Editing this row and want to save it */
+                        saveRow(oTable, nEditing);
+                        nEditing = null;
+                        alert("Updated!");
+                    } else {
+                        /* No edit in progress - let's start one */
+                        editRow(oTable, nRow);
+                        nEditing = nRow;
+                    }
+                });
+        //*initialize editable datatable
 
-    var table4 = $('#advanced-usage').DataTable({
-        "ajax": 'assets/extras/datatables-basic.json',
-        "columns": [
-            {"data": "id"},
-            {"data": "firstName"},
-            {"data": "lastName"}
-        ],
-        "aoColumnDefs": [
-            {'bSortable': false, 'aTargets': ["no-sort"]}
-        ]
-    });
+        //initialize responsive datatable
+                var table3 = $('#responsive-usage').DataTable({
+                    "ajax": 'assets/extras/datatables-responsive.json',
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "firstName"},
+                        {"data": "lastName"},
+                        {"data": "tel"},
+                        {"data": "address"},
+                        {"data": "city"},
+                        {"data": "state"},
+                        {"data": "zip"}
+                    ],
+                    "aoColumnDefs": [
+                        {'bSortable': false, 'aTargets': ["no-sort"]}
+                    ]
+                });
+        //*initialize responsive datatable
 
-    var colvis = new $.fn.dataTable.ColVis(table4);
+        //initialize responsive datatable
+                function stateChange(iColumn, bVisible) {
+                    console.log('The column', iColumn, ' has changed its status to', bVisible);
+                }
 
-    $(colvis.button()).insertAfter('#colVis');
-    $(colvis.button()).find('button').addClass('btn btn-default').removeClass('ColVis_Button');
+                var table4 = $('#advanced-usage').DataTable({
+                    "ajax": 'assets/extras/datatables-basic.json',
+                    "columns": [
+                        {"data": "id"},
+                        {"data": "firstName"},
+                        {"data": "lastName"}
+                    ],
+                    "aoColumnDefs": [
+                        {'bSortable': false, 'aTargets': ["no-sort"]}
+                    ]
+                });
 
-    var tt = new $.fn.dataTable.TableTools(table4, {
-        sRowSelect: 'single',
-        "aButtons": [
-            'copy',
-            'print', {
-                'sExtends': 'collection',
-                'sButtonText': 'Save',
-                'aButtons': ['csv', 'xls', 'pdf']
-            }
-        ],
-        "sSwfPath": "assets/js/vendor/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
-    });
+                var colvis = new $.fn.dataTable.ColVis(table4);
 
-    $(tt.fnContainer()).insertAfter('#tableTools');
-//*initialize responsive datatable
+                $(colvis.button()).insertAfter('#colVis');
+                $(colvis.button()).find('button').addClass('btn btn-default').removeClass('ColVis_Button');
 
-});
+                var tt = new $.fn.dataTable.TableTools(table4, {
+                    sRowSelect: 'single',
+                    "aButtons": [
+                        'copy',
+                        'print', {
+                            'sExtends': 'collection',
+                            'sButtonText': 'Save',
+                            'aButtons': ['csv', 'xls', 'pdf']
+                        }
+                    ],
+                    "sSwfPath": "assets/js/vendor/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                });
+
+                $(tt.fnContainer()).insertAfter('#tableTools');
+        //*initialize responsive datatable
+
+            });
 
         </script>
+
 
 
 

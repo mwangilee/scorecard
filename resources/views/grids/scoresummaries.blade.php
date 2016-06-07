@@ -4,7 +4,6 @@
 
 <div class="page page-tables-datatables">
 
-
     <!-- row -->
     <div class="row">
         <!-- col -->
@@ -25,14 +24,13 @@
                     <strong>Failure!!!</strong> {{ session('message') }}.
                 </div>
                 @endif
+
+
                 <!-- tile header -->
                 <div class="tile-header dvd dvd-btm">
                     <h1 class="custom-font"><strong>Score</strong> Cards</h1>
                     <ul class="controls">
-                        <li>
-
-                            <a href="{{url("/addcategory")}}" ><i class="fa fa-plus mr-5"></i> Add Entry</a>
-                        </li>
+                        
                         <li class="dropdown">
 
                             <a role="button" tabindex="0" class="dropdown-toggle settings" data-toggle="dropdown">
@@ -71,25 +69,18 @@
                         <table class="table table-custom" id="editable-usage">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Template Name</th>
-                                    <th>Status</th>
-                                    <th>Date Created</th>
-                                    <th>Date Updated</th>
+                                    <th>Name</th>
+                                    <th>Total Score Name</th>
                                     <th style="width: 160px;" class="no-sort">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $index)
+                                @foreach ($summary as $index)
                                 <tr class="odd gradeX">
-                                    <td>{{$index->id}}</td>
                                     <td>{{$index->name}}</td>
-                                    <td>{{$index->status}}</td>
-                                    <td>{{$index->created_at}}</td>
-                                    <td>{{$index->updated_at}}</td>
+                                    <td>{{$index->total_score}}</td>
                                     <td class="actions">
-                                        <a href="{{url("/editcategories/$index->id/1")}}"class="text-primary text-uppercase text-strong text-sm mr-10">Edit</a>
-                                        <a href="{{url("/editcategories/$index->id/2")}}"class="text-danger text-uppercase text-strong text-sm mr-10">Delete</a>
+                                        <a href="{{url("/scorecards")}}"class="text-primary text-uppercase text-strong text-sm mr-10">View Details</a>        
                                     </td>
 
                                 </tr>
